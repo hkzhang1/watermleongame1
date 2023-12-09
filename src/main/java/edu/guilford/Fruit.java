@@ -1,9 +1,10 @@
 package edu.guilford;
 
-public class Fruit {
-    public static void main(String[] args) {
+import java.util.ArrayList;
 
-    }
+import edu.guilford.jpanel.fruitsMovement;
+
+public class Fruit {
     //to define the proportions of the fruits using x, y, and the radius (becuase they are all circles)
         int x, y, radius;
     
