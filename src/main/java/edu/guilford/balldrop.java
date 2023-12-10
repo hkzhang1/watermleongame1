@@ -18,6 +18,7 @@ public class Main {
     Sphere grape = new Sphere(dropheight, 1.5, Color.PURPLE, g);
     Sphere orange = new Sphere(dropheight, 2, Color.ORANGE, g);
     Sphere apple = new Sphere(dropheight, 2.5, Color.RED, g);
+    Sphere bomb = new Sphere(dropheight, 1, Color.BLACK, g);
 
     Box bottom = new Box(new Vector(0, -height, 0), new Vector(width, 0, 1), Color.WHITE);
     Box left = new Box(new Vector(-width / 2, 0, 0), new Vector(0.1, height, 0.1), Color.WHITE);
@@ -29,14 +30,20 @@ public class Main {
     list.add(grape);
     list.add(orange);
     list.add(apple);
+    list.add(bomb);
 
     for (Sphere fruit : list) {
         while (fruit.getPos().getY() - fruit.getRadius() > -height) {
             fruit.setPos(fruit.getPos().add(g.multiply(dt)));
             t += dt;
+            if (fruit.pos.y + fruit.radius == bomb.pos.y + bomb.radius) {
+                fruit.color = Color.black;
+                System.out.println("exploded!");}
             }
         }
     }
+
+    //add ball merging code here
 
 
 class Vector {
