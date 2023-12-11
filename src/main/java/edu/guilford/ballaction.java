@@ -3,8 +3,8 @@ package edu.guilford;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
+public class ballaction {
+    public static ballaction main(String[] args) {
 
     Vector g = new Vector(0, -9.81, 0);
     Vector dropheight = new Vector(0, 20, 0);
@@ -18,7 +18,7 @@ public class Main {
     Sphere grape = new Sphere(dropheight, 1.5, Color.PURPLE, g);
     Sphere orange = new Sphere(dropheight, 2, Color.ORANGE, g);
     Sphere apple = new Sphere(dropheight, 2.5, Color.RED, g);
-    Sphere bomb = new Sphere(dropheight, 1, Color.BLACK, g);
+    Sphere bomb = new Sphere(dropheight, 1, Color.black, g);
 
     Box bottom = new Box(new Vector(0, -height, 0), new Vector(width, 0, 1), Color.WHITE);
     Box left = new Box(new Vector(-width / 2, 0, 0), new Vector(0.1, height, 0.1), Color.WHITE);
