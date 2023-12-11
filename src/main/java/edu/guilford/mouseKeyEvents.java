@@ -1,5 +1,7 @@
 package edu.guilford;
 
+import java.awt.Color;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -7,11 +9,12 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.guilford.jpanel.fruitsPanel;
+import edu.guilford.JThings.fruitsPanel;
 
 
 class mouseKeyEvents extends JFrame { //sets up the class for mouse + key events --> how the game will function
     public mouseKeyEvents() {
+        JPanel fruits;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -34,6 +37,7 @@ class SuikaMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // Handle mouse click event
+        ballAction.ballAction();
     }
 
     @Override
@@ -41,14 +45,14 @@ class SuikaMouseListener implements MouseListener {
         // Handle mouse press event
         int mouseX = e.getX();
             int mouseY = e.getY();
-
+            
             for (Fruit fruit : fruits) {
                 fruit.setX(mouseX);
                 fruit.setY(mouseY);
             }
 
             // Repaint the panel to update the fruit positions
-            fruitsPanel.repaint();
+            //fruitsPanel.repaint();
         }
 
 

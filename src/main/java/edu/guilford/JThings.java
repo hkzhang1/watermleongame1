@@ -1,5 +1,7 @@
 package edu.guilford;
 
+import java.awt.Color;
+
 import java.awt.Graphics; 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
-public class jpanel {
+public class JThings {
     private JPanel fruits;
     
     public class fruitsMovement extends JFrame {
@@ -18,9 +20,17 @@ public class jpanel {
         
         public fruitsMovement() { // for other code in this class
             fruits = new ArrayList<>();
-            fruits.add(new Fruit(50, 50, 30, "Pineapple")); //change later to specific sizes, more sizes (how many?)
-            fruits.add(new Fruit(150, 100, 40, "Watermelon"));
-            fruits.add(new Fruit(250, 150, 20, "Cherry"));
+            //fruits.add(new Fruit(50, 50, 30, "Pineapple", Color.YELLOW, 0)); //change later to specific sizes, more sizes (how many?)
+            //fruits.add(new Fruit(150, 100, 40, "Watermelon", Color.GREEN, 0));
+            fruits.add(new Fruit(250, 150, 20, "Cherry", Color.PINK, 0));
+            fruits.add(new Fruit(300, 150, 40, "Strawberry", Color.MAGENTA, 0));
+            fruits.add(new Fruit(350, 150, 60, "Grape", Color.BLUE, 0));
+            fruits.add(new Fruit(400, 150, 80, "Orange", Color.ORANGE, 0));
+            fruits.add(new Fruit(450, 150, 100, "Apple", Color.RED, 0));
+            
+            for (Fruit fruit : fruits) {
+                System.out.println(fruit.getType());
+            }
 
             setSize(400, 400);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,17 +59,17 @@ public class jpanel {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            fruitsMovement fruitsMovement = new jpanel().new fruitsMovement();
-            fruitsMovement.setVisible(true);
-            //fruitsMovement fruitsMovement = new jpanel().new fruitsMovement();
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(() -> {
+    //         fruitsMovement fruitsMovement = new JThings().new fruitsMovement();
+    //         fruitsMovement.setVisible(true);
+    //         //fruitsMovement fruitsMovement = new jpanel().new fruitsMovement();
 
-            new mouseKeyEvents(fruits).setVisible(true);
+    //         new mouseKeyEvents(fruits).setVisible(true);
 
 
-        });
-    }
+    //     });
+    // }
 
      private void generateRandomFruit() { //generates a random fruit
         Random random = new Random();
@@ -67,11 +77,14 @@ public class jpanel {
         int randomY = random.nextInt(300) + 50;  // Random y-coordinate within a range
         int randomRadius = random.nextInt(20) + 20;  // Random radius within a range
         String randomType = "RandomFruit";
+        Color randomballColor = Color.CYAN;
+        double randomVelocity = random.nextDouble();
 
-        Fruit randomFruit = new Fruit(randomX, randomY, randomRadius, randomType);
-        fruits.add(randomFruit);
+
+        Fruit randomFruit = new Fruit(randomX, randomY, randomRadius, randomType, randomballColor, randomVelocity);
+        //fruitsPanel.add(randomFruit);
 
         // Repaint the panel to update the fruit positions
-        fruitsPanel.repaint();
+        //fruitsPanel.repaint();
     }
 }
