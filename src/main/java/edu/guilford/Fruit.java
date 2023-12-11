@@ -43,6 +43,8 @@ public class Fruit {
             g.setColor(Color.ORANGE);
         else if (type == "apple")
             g.setColor(Color.RED);
+        else if (type == "bomb")
+            g.setColor(Color.GRAY);
         else
             g.setColor(Color.CYAN);
 
@@ -120,7 +122,6 @@ public class Fruit {
         return color;
     }
 
-<<<<<<< HEAD
     public void setColor(Color color) {
         this.color = color;
     }
@@ -138,23 +139,3 @@ public class Fruit {
     }
 
 }
-=======
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    // getters and setters for velocity
-    public double getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(double velocity) {
-        this.velocity = velocity;
-    }
-
-    public void requestFocus() {
-    }
-
-}
-
->>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
