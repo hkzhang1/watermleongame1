@@ -8,42 +8,68 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
 public class JThings {
-    private JPanel fruitPanel;
-    private JPanel box;
-    private ArrayList<Fruit> fruits;
-    
-    public class fruitsMovement extends JFrame {
+    //declaring things
+    private JPanel fruitMovementPanel; //the box where the balls drop into
+    private ArrayList<Fruit> fruits; //holds fruits list
+    private Fruit cherry;
+    private Fruit strawberry;
+    private Fruit grape;
+    private Fruit orange;
+    private Fruit apple;
+    public class fruitsMovementPanel extends JFrame {
         private List<Fruit> fruits;
-        public MouseKeyEventPanel(){
-            super();
+        public void MouseKeyEventPanel(){
+            //super();
             initPanel();
         }
-        public void initPanel(){
-            setPreferredSize(new Dimension(1800,900));
-        }
-        public fruitsMovement() { // for other code in this class
+        
+        
+        public fruitsMovementPanel() { // for other code in this class
             fruits = new ArrayList<>();
             //fruits.add(new Fruit(50, 50, 30, "Pineapple", Color.YELLOW, 0)); //change later to specific sizes, more sizes (how many?)
             //fruits.add(new Fruit(150, 100, 40, "Watermelon", Color.GREEN, 0));
-            fruits.add(new Fruit(250, 150, 20, "Cherry", Color.PINK, 0));
-            fruits.add(new Fruit(300, 150, 40, "Strawberry", Color.MAGENTA, 0));
-            fruits.add(new Fruit(350, 150, 60, "Grape", Color.BLUE, 0));
-            fruits.add(new Fruit(400, 150, 80, "Orange", Color.ORANGE, 0));
-            fruits.add(new Fruit(450, 150, 100, "Apple", Color.RED, 0));
+            cherry = new Fruit(0, 0, 20, "cherry", Color.PINK, 0);
+            strawberry = new Fruit(300, 150, 40, "strawberry", Color.MAGENTA, 0);
+            grape = new Fruit(350, 150, 60, "grape", Color.BLUE, 0);
+            orange = new Fruit(400, 150, 80, "orange", Color.ORANGE, 0);
+            apple = new Fruit(450, 150, 100, "apple", Color.RED, 0);
             
-            for (Fruit fruit : fruits) {
+            //fruitsPanel.add(cherry); //trying to add the fruit objects to the main jpanel
+            // fruitsPanel.add(strawberry);
+            // fruitsPanel.add(grape);
+            // fruitsPanel.add(orange);
+            // fruitsPanel.add(apple);
+
+            fruits.add(cherry); //trying to add the fruit objects to the main jpanel
+            fruits.add(strawberry);
+            fruits.add(grape);
+            fruits.add(orange);
+            fruits.add(apple);
+            
+            
+            for (Fruit fruit : fruits) { //tells the user what type of fruit it is
                 System.out.println(fruit.getType());
             }
 
             setSize(400, 400);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             add(new fruitsPanel(fruits));
+        }
+        public void initPanel(){
+            setPreferredSize(new Dimension(1800,900));
+
+            fruitMovementPanel = new JPanel();
+            fruitMovementPanel.setOpaque(true);
+            fruitMovementPanel.setLayout(new BoxLayout(fruitMovementPanel, BoxLayout.LINE_AXIS));            
+            fruitMovementPanel.add(Box.createHorizontalGlue());
         }
     }
 
