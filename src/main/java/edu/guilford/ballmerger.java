@@ -1,10 +1,30 @@
+<<<<<<< HEAD
+// import java.util.HashMap; //idk what hash mpa or map is oops
+// import java.util.Map;
+=======
 // package edu.guilford;
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
 
+<<<<<<< HEAD
+// public class Main {
+//     public static void main(String[] args) {
+//         Map<String, Sphere> ball_types = new HashMap<>();
+//         ball_types.put("red", new Sphere(new Vector(-3, 0, 0), 0.5, Color.RED, new Vector(0.1, 0, 0)));
+//         ball_types.put("red1", new Sphere(new Vector(3, 0, 0), 0.5, Color.RED, new Vector(-0.1, 0, 0)));
+=======
 // import java.util.List;
 // //import java.util.HashMap; //idk what hash mpa or map is oops
 // import java.util.Map;
 // import edu.guilford.ballaction;
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
 
+<<<<<<< HEAD
+//         boolean collisionOccurred = checkCollisionAndMerge(ball_types);
+//         if (collisionOccurred) {
+//             Scene.pause();
+//         }
+//     }
+=======
 // public class ballmerger {
 //     public static void ballmerger(String[] args) {
 //         /*private List fruit_types = fruits;
@@ -20,6 +40,7 @@
 //             Scene.pause();
 //         }
 //     }}
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
 
 //     public static boolean checkCollisionAndMerge(Map<String, Sphere> ball_types) {
 //         for (Map.Entry<String, Sphere> entry1 : ball_types.entrySet()) {
@@ -96,29 +117,68 @@
 //         public static final Color WHITE = new Color();
 //     }
 
+<<<<<<< HEAD
 //     static class Scene {
 //         public static void pause() {
 //             // Pause the scene
 //         }
 //     }
 //     while (true) {
+//     rate(30);
+=======
+//     static class Scene {
+//         public static void pause() {
+//             // Pause the scene
+//         }
+//     }
+//     while (true) {
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
     
+<<<<<<< HEAD
+//     for (Ball ball : ball_types.values()) {
+//         ball.pos.add(ball.velocity);
+//     }
+=======
 //     for (Fruit fruit : fruit_types.values()) {
 //         fruit.getX().add(Fruit.getVelocity());
 //     }
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
     
 //     if (check_collision_and_merge()) {
 //         continue;
 //     }
     
+<<<<<<< HEAD
+//     for (Map.Entry<String, Ball> entry1 : ball_types.entrySet()) {
+//         String type1 = entry1.getKey();
+//         Ball ball1 = entry1.getValue();
+=======
 //     for (Map.Entry<String, Fruit> entry1 : fruit_types.entrySet()) {
 //         String type1 = entry1.getKey();
 //         Fruit ball1 = entry1.getValue();
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
         
+<<<<<<< HEAD
+//         for (Map.Entry<String, Ball> entry2 : ball_types.entrySet()) {
+//             String type2 = entry2.getKey();
+//             Ball ball2 = entry2.getValue();
+=======
 //         for (Map.Entry<String, Fruit > entry2 : fruit_types.entrySet()) {
 //             String type2 = entry2.getKey();
 //             Fruit ball2 = entry2.getValue();
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
             
+<<<<<<< HEAD
+//             if (!type1.equals(type2)) {
+//                 if (ball1.pos.x < ball2.pos.x) {
+//                     ball1.pos.x += 0.01;
+//                     ball2.pos.x -= 0.01;
+//                 }
+//             }
+//         }
+//     }
+// }
+=======
 //             if (!type1.equals(type2)) {
 //                 if (ball1.getX() < ball2.getX()) {
 //                     ball.setX() = ball1.getX() + 0.01;
@@ -128,6 +188,7 @@
 //         }
 //     }
 // }
+>>>>>>> 6d5eedcf0803ca4468f5ae6f983e4c98754f5714
 
 
 
