@@ -3,6 +3,7 @@ package edu.guilford;
 import java.awt.Color;
 
 import java.awt.Graphics; 
+import java.awt.Dimension; 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,11 +14,19 @@ import javax.swing.SwingUtilities;
 
 
 public class JThings {
-    private JPanel fruits;
+    private JPanel fruitPanel;
+    private JPanel box;
+    private ArrayList<Fruit> fruits;
     
     public class fruitsMovement extends JFrame {
         private List<Fruit> fruits;
-        
+        public MouseKeyEventPanel(){
+            super();
+            initPanel();
+        }
+        public void initPanel(){
+            setPreferredSize(new Dimension(1800,900));
+        }
         public fruitsMovement() { // for other code in this class
             fruits = new ArrayList<>();
             //fruits.add(new Fruit(50, 50, 30, "Pineapple", Color.YELLOW, 0)); //change later to specific sizes, more sizes (how many?)

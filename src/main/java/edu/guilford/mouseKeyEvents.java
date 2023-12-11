@@ -6,9 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.guilford.JThings.fruitsMovement;
 import edu.guilford.JThings.fruitsPanel;
 
 
@@ -37,7 +39,7 @@ class SuikaMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // Handle mouse click event
-        ballAction.ballAction();
+        ballaction.ballaction();
     }
 
     @Override
@@ -64,6 +66,8 @@ class SuikaMouseListener implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         // Handle mouse enter event
+        JLabel source = (JLabel)e.getSource();
+        source.requestFocus();
     }
 
     @Override
@@ -71,6 +75,7 @@ class SuikaMouseListener implements MouseListener {
         // Handle mouse exit event
     }
 }
+
 
 class suikaKeyListener implements KeyListener {
 
@@ -82,6 +87,22 @@ class suikaKeyListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         // Handle key pressed event
+        JLabel source = (JLabel) e.getSource();
+        Point location = source.getLocation();
+
+         if (e.getKeyCode() == KeyEvent.VK_LEFT) { //checks whether event has "k" key code + if so, moves the object down by 5 pixels
+                Point newLocation = new Point(location.x-5, location.y);
+                source.setLocation(newLocation);
+            }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) { //checks whether event has "k" key code + if so, moves the object down by 5 pixels
+                Point newLocation = new Point(location.x + 5, location.y);
+                source.setLocation(newLocation);
+            }
+
+            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                requestFocus();
+             }
+
     }
 
     @Override

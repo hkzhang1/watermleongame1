@@ -57,8 +57,13 @@ public class Fruit {
         SwingUtilities.invokeLater(() -> {
             fruitsMovement fruitsMovement = new JThings().new fruitsMovement();
             fruitsMovement.setVisible(true);
-            new mouseKeyEvents(fruit).setVisible(true);
+            // new mouseKeyEvents(fruit).setVisible(true);
+            // MouseKeyEventPanel mousekeyeventPanel = new MouseKeyEventPanel();
 
+            // mousekeyeventWindow.getContentPane().add(mousekeyeventPanel);
+
+            // mousekeyeventWindow.pack();
+            // mouseKeyEvents.setVisible(true);
 
         });
     }
