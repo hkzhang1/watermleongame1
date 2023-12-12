@@ -1,16 +1,17 @@
 package edu.guilford;
 
 import java.awt.Graphics;
-import java.util.List;
 
-import javax.swing.SwingUtilities;
 
-import edu.guilford.JThings.fruitsMovementPanel;
+import javax.swing.JFrame;
+
+
+import edu.guilford.FruitPanel.SuikaMouseHelper;
 
 import java.awt.Color;
 
 public class Fruit {
-    private List<Fruit> fruits;
+   
     // to define the proportions of the fruits using x, y, and the radius (becuase
     // they are all circles)
     int x, y, radius;
@@ -60,10 +61,28 @@ public class Fruit {
         // g.drawString(type, x - radius, y - radius - 5);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            fruitsMovementPanel fruitsMovement = new JThings().new fruitsMovementPanel();
-            fruitsMovement.setVisible(true);
+    public static void main(String[] args) { //look at lab 15 studentProject file for more help on this part
+        // JPanel fruitPanel = new JPanel(); //cant make jpanel have a name--jframe can have a name
+        // fruitPanel.setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
+
+        JFrame fruitFrame = new JFrame("Best (suika) Game"); //creates a frame for the game titled suika game
+
+        FruitPanel FruitPanel = new FruitPanel(); //creates a fruitpanel from the FruitPanel
+
+        FruitPanel.setBackground(Color.BLACK); //color of the window
+
+        fruitFrame.getContentPane().add(FruitPanel); //adds the fruitpanel to the frame for the game
+        //fruitFrame.getContentPane().add(backgroundPanel);
+        //BackgroundPanel backgroundPanel = new BackgroundPanel(Color.MAGENTA, 800, 600);
+
+        fruitFrame.setSize(1800,900);
+
+        fruitFrame.pack();
+        fruitFrame.setVisible(true);
+
+        // SwingUtilities.invokeLater(() -> {
+        //     fruitsMovementPanel fruitsMovement = new JThings().new fruitsMovementPanel();
+        //     fruitsMovement.setVisible(true);
             // LOOK HERE -ISSUE : we want the work that is in different files to actually
             // show up when we
             // run but we don't really know how to make that happen
@@ -76,11 +95,11 @@ public class Fruit {
             // mousekeyeventWindow.pack();
             // mouseKeyEvents.setVisible(true);
 
-        });
-    }
+        };
 
     // add more stuff for the behaviors of the fruits -- i think falling, the
     // scoreboard, etc
+
     // getters and setters for X
     public int getX() {
         return x;
@@ -135,7 +154,11 @@ public class Fruit {
         this.velocity = velocity;
     }
 
-    public void requestFocus() {
+	public void addMouseListener(SuikaMouseHelper suikaMouseHelper) {
+	}
+
+    public void addKeyListener(suikaKeyListener suikaKeyListener) {
     }
+
 
 }
