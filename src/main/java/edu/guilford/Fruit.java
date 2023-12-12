@@ -67,33 +67,16 @@ public class Fruit {
         FruitPanel.setBackground(Color.BLACK); //color of the window
 
         fruitFrame.getContentPane().add(FruitPanel); //adds the fruitpanel to the frame for the game
-        //fruitFrame.getContentPane().add(backgroundPanel);
+        //fruitFrame.getContentPane().add(backgroundPanel); 
         //BackgroundPanel backgroundPanel = new BackgroundPanel(Color.MAGENTA, 800, 600);
 
         fruitFrame.setSize(1800,900);
 
         fruitFrame.pack();
         fruitFrame.setVisible(true);
-
-        // SwingUtilities.invokeLater(() -> {
-        //     fruitsMovementPanel fruitsMovement = new JThings().new fruitsMovementPanel();
-        //     fruitsMovement.setVisible(true);
-            // LOOK HERE -ISSUE : we want the work that is in different files to actually
-            // show up when we
-            // run but we don't really know how to make that happen
-
-            // new mouseKeyEvents(fruit).setVisible(true);
-            // MouseKeyEventPanel mousekeyeventPanel = new MouseKeyEventPanel();
-
-            // mousekeyeventWindow.getContentPane().add(mousekeyeventPanel);
-
-            // mousekeyeventWindow.pack();
-            // mouseKeyEvents.setVisible(true);
-
         };
 
-    // add more stuff for the behaviors of the fruits -- i think falling, the
-    // scoreboard, etc
+    // add more stuff for the behaviors of the fruits -- i think falling, the scoreboard, etc
 
     // getters and setters for X
     public int getX() {
@@ -149,6 +132,7 @@ public class Fruit {
         this.velocity = velocity;
     }
 
+    //mouse and key listeners
 	public void addMouseListener(SuikaMouseHelper suikaMouseHelper) {
 	}
 
