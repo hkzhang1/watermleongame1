@@ -141,6 +141,7 @@ public class Fruit {
     public void addKeyListener(suikaKeyListener suikaKeyListener) {
     }
 
+    //setvisible method
     public void setVisible(boolean b) {
     }
 

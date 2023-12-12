@@ -29,14 +29,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 //import javax.swing.SwingUtilities;
 
-
-//plan:
-//Fruit Panel = big guy
-//inside it, we instantiate our variables, put our actions in methods (like ball action into methods, mouse key events) and organize the look of the panel
-//so one method is ballaction, one is randomball (already made), and one needs to be randomgenerate location or something
-//one needs to randomly choose a ball from the balls that we have to appear at the top
-//we have to first start with just making one ball appear and then making it fall. if we can figure that out today, then tmw will be big dubs
-
 public class FruitPanel extends JPanel{
     //declaring things
     private JPanel FruitPanel;//entire canvas that the ball drops in and the motion is in
@@ -139,13 +131,6 @@ public class FruitPanel extends JPanel{
         fruits = new ArrayList<>();
 
         //initializes the fruits here
-        // cherry = new Fruit(350, 100, 20, "cherry", Color.PINK, 0);
-        // strawberry = new Fruit(540, 100, 40, "strawberry", Color.MAGENTA, 0);
-        // grape = new Fruit(740, 100, 60, "grape", Color.BLUE, 0);
-        // orange = new Fruit(940, 100, 80, "orange", Color.ORANGE, 0);
-        // apple = new Fruit(1140, 100, 100, "apple", Color.RED, 0);
-        // bomb = new Fruit(1310, 100, 20, "bomb", Color.GRAY, 0);
-
         cherry = new Fruit(840, 100, 20, "cherry", Color.PINK, 0);
         strawberry = new Fruit(840, 100, 40, "strawberry", Color.MAGENTA, 0);
         grape = new Fruit(840, 100, 60, "grape", Color.BLUE, 0);
@@ -198,6 +183,7 @@ public class FruitPanel extends JPanel{
         apple.addKeyListener(new suikaKeyListener());
         bomb.addKeyListener(new suikaKeyListener());
         
+        //fruitpanel creation
         FruitPanel  = new JPanel(); 
         FruitPanel.setOpaque(true); 
         FruitPanel.setLayout(new BoxLayout(FruitPanel, BoxLayout.LINE_AXIS));            
@@ -231,9 +217,6 @@ public class FruitPanel extends JPanel{
         add(buttonPane);
 
         shuffleFruits();
-
-        
-
     
     }
 
@@ -289,12 +272,15 @@ public class FruitPanel extends JPanel{
 
             fruits.add(selectedFruit); // Add the selected fruit to the list
             remainingFruits.remove(selectedFruit); // Remove the fruit from the remaining list
+
+            ballFalling();
             
             repaint(); // Redraw the panel with the updated fruit position
             
         }
 }
 
+//shows the next fruit to be dropped
 private void showNextFruit() {
     if (currentFruitIndex >= 0 && currentFruitIndex < fruits.size()) {
         Fruit currentFruit = fruits.get(currentFruitIndex);
