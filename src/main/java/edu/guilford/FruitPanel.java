@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -144,8 +145,8 @@ public class FruitPanel extends JPanel{
         cherry = new Fruit(840, 100, 20, "cherry", Color.PINK, 0);
         strawberry = new Fruit(840, 100, 40, "strawberry", Color.MAGENTA, 0);
         grape = new Fruit(840, 100, 60, "grape", Color.BLUE, 0);
-        orange = new Fruit(840, 100, 80, "orange", Color.ORANGE, 0);
-        apple = new Fruit(840, 100, 100, "apple", Color.RED, 0);
+        orange = new Fruit(840, 100, 75, "orange", Color.ORANGE, 0);
+        apple = new Fruit(840, 100, 80, "apple", Color.RED, 0);
         bomb = new Fruit(840, 100, 20, "bomb", Color.GRAY, 0);
 
         //adds fruits to the fruits list
@@ -223,6 +224,8 @@ public class FruitPanel extends JPanel{
 
         shuffleFruits();
 
+        oneAtATime();
+
     
     }
 
@@ -253,6 +256,31 @@ public class FruitPanel extends JPanel{
         // Select a random fruit and set its position to (300, 10)
         randomFruitSelected();
     }
+
+    private void oneAtATime(){
+        //show one fruit at a time
+        fruits.clear(); // Remove any existing fruits
+        
+        Random random = new Random();
+        List<Fruit> remainingFruits = new ArrayList<>(Arrays.asList(cherry, strawberry, grape, orange, apple, bomb));
+
+        while (!remainingFruits.isEmpty()) {
+            int randomIndex = random.nextInt(remainingFruits.size());
+            Fruit selectedFruit = remainingFruits.get(randomIndex);
+            
+            // Set the position of the selected fruit at the top of the screen
+            selectedFruit.setX(840); // Change these values as needed
+            selectedFruit.setY(100); // Top of the screen
+            
+            selectedFruit.setVisible(true); // Set the fruit visible
+
+            fruits.add(selectedFruit); // Add the selected fruit to the list
+            remainingFruits.remove(selectedFruit); // Remove the fruit from the remaining list
+            
+            repaint(); // Redraw the panel with the updated fruit position
+            
+        }
+}
 
     public void generateRandomFruit() { //generates a random fruit
         Random random = new Random();
