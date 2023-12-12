@@ -41,6 +41,10 @@ public class FruitPanel extends JPanel{
     //declaring things
     private JPanel FruitPanel;//entire canvas that the ball drops in and the motion is in
     private JPanel backgroundPanel;
+    private Image backgroundImage; 
+    private int panelWidth = 1000;
+    private int panelHeight = 800;
+
     private ArrayList<Fruit> fruits; //holds fruits list
     private Fruit cherry;
     private Fruit strawberry;
@@ -48,13 +52,13 @@ public class FruitPanel extends JPanel{
     private Fruit orange;
     private Fruit apple;
     private Fruit bomb;
-    private Image backgroundImage; 
-    private int panelWidth = 1000;
-    private int panelHeight = 800;
+    
     private JPanel buttonPane; //to put the buttons in
     private JButton RandomFruit; //randomfruit button
-    private JButton resetButton; //reset to OG position button
     private JButton dropButton; //drop button
+    private JButton startButton; //start button
+    private JButton nextFruitButton; //next fruit displaying button
+    private int currentFruitIndex = -1;
 
     public FruitPanel() {
         super(); 
@@ -209,26 +213,31 @@ public class FruitPanel extends JPanel{
         RandomFruit.addActionListener(new RandomFruitListener());
         buttonPane.add(RandomFruit);
         
-        //to make the start button
-        resetButton = new JButton("Reset to drop position");
-        resetButton.addActionListener(new ResetButtonListener());
-        buttonPane.add(resetButton);
+         //to make the start button
+        startButton = new JButton("Start Game");
+        startButton.addActionListener(new StartButtonListener());
+        buttonPane.add(startButton); 
 
-        //to make the drop button
+         //to make the drop button
         dropButton = new JButton("Drop");
         dropButton.addActionListener(new DropButtonListener());
         buttonPane.add(dropButton);
-       
+
+        nextFruitButton = new JButton("Show Next Fruit");
+        nextFruitButton.addActionListener(new NextFruitListener());
+        buttonPane.add(nextFruitButton);
+
 
         add(buttonPane);
 
         shuffleFruits();
 
-        oneAtATime();
+        
 
     
     }
 
+    //calls randommethod when random button is clicked
     private class RandomFruitListener implements ActionListener {
 
         @Override
@@ -238,13 +247,15 @@ public class FruitPanel extends JPanel{
         }
     }
 
-    private class ResetButtonListener implements ActionListener {
+    //calls oneatatime method when start button is clicked
+    private class StartButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            startGame();
+            oneAtATime();
         }
     }
 
+    //calls ballfalling method when drop button is clicked
     private class DropButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -252,9 +263,12 @@ public class FruitPanel extends JPanel{
         }
     }
 
-    private void startGame() {
-        // Select a random fruit and set its position to (300, 10)
-        randomFruitSelected();
+    //calls shownextfruit method when next button is clicked
+     private class NextFruitListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showNextFruit();
+        }
     }
 
     private void oneAtATime(){
@@ -268,9 +282,8 @@ public class FruitPanel extends JPanel{
             int randomIndex = random.nextInt(remainingFruits.size());
             Fruit selectedFruit = remainingFruits.get(randomIndex);
             
-            // Set the position of the selected fruit at the top of the screen
-            selectedFruit.setX(840); // Change these values as needed
-            selectedFruit.setY(100); // Top of the screen
+            selectedFruit.setX(840); 
+            selectedFruit.setY(100); 
             
             selectedFruit.setVisible(true); // Set the fruit visible
 
@@ -282,10 +295,28 @@ public class FruitPanel extends JPanel{
         }
 }
 
+private void showNextFruit() {
+    if (currentFruitIndex >= 0 && currentFruitIndex < fruits.size()) {
+        Fruit currentFruit = fruits.get(currentFruitIndex);
+        currentFruit.setVisible(false); // Hide the current fruit
+    }
+
+    // Choose a random fruit and show it
+    Random random = new Random();
+    int randomIndex = random.nextInt(fruits.size());
+    Fruit nextFruit = fruits.get(randomIndex);
+    nextFruit.setX(840); // Initial X position
+    nextFruit.setY(100); // Initial Y position
+    nextFruit.setVisible(true); // Show the new random fruit
+
+    currentFruitIndex = randomIndex; // Update the current fruit index
+    repaint(); // Redraw the panel
+}
+
     public void generateRandomFruit() { //generates a random fruit
         Random random = new Random();
-        int randomX = random.nextInt(1) + 840;  // Random x-coordinate within a range
-        int randomY = random.nextInt(1) + 100;  // Random y-coordinate within a range
+        int randomX = random.nextInt(10) + 840;  // Random x-coordinate within a range
+        int randomY = random.nextInt(10) + 100;  // Random y-coordinate within a range
         int randomRadius = random.nextInt(20) + 20;  // Random radius within a range
         String randomType = "RandomFruit";
         Color randomballColor = Color.CYAN;
@@ -313,7 +344,6 @@ public class FruitPanel extends JPanel{
         list.add(bomb);
 
         for (Fruit fruit : list) {
-            //while (fruit.getY() - fruit.getRadius() < height) {
             while (fruit.getY() + fruit.getRadius() < height) {
                 double droprate = fruit.getY() + (grav * rate);
                 fruit.setY((int)droprate);
