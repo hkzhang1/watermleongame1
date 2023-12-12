@@ -2,6 +2,7 @@ package edu.guilford;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 
 import java.awt.event.KeyEvent;
@@ -12,7 +13,8 @@ import java.awt.event.MouseMotionListener;
 
 
 import java.awt.Graphics;
-import java.awt.Dimension; 
+import java.awt.Image;
+//import java.awt.Dimension; 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +28,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import edu.guilford.JThings.fruitsPanel;
 import javafx.event.ActionEvent;
 
 
@@ -49,9 +50,10 @@ public class FruitPanel extends JPanel{
     private Fruit apple;
     private Fruit bomb;
     private JLabel image1Label;
-    private ImageIcon firstIcon;
 
-    private int panelWidth = 300;
+    private Image backgroundImage;
+
+    private int panelWidth = 1000;
     private int panelHeight = 800;
 
     //vector code (but maybe not necessary? goes from 36 to 67)
@@ -87,9 +89,11 @@ public class FruitPanel extends JPanel{
     //     }
     // }
         
-    public void FruitPanel() {
+    public FruitPanel() {
         //super(); // no idea why this doesnt work.... but all the other code has this uncommented so maybe as chat why it doesnt work?
-
+        initFruits();
+        initBackgroundImage();
+        
         //no idea how to make backgroundpanel work here....
         backgroundPanel = new JPanel();
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.LINE_AXIS));
@@ -145,12 +149,48 @@ public class FruitPanel extends JPanel{
         initPanel();
     }
 
-    //for the background pciture
+    //for the drawing maybe
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) { //items drawn later appear on top of the elemetns drawn earlier
         super.paintComponent(g);
-        g.setColor(Color.MAGENTA);
-        g.fillRect(0, 0, panelWidth, panelHeight);
+
+        // Set alpha value (0.0f is fully transparent, 1.0f is fully opaque) -- try something for opacity to make the image less bright
+        // float alpha = 0.5f;
+        // AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        // g.setComposite(alphaComposite);
+
+       // Draw the background image
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+
+        //draw the container --> add some code to put it at a specific place + height and width
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(1800/4, 0, panelWidth, panelHeight);
+
+        // Draw other elements or images
+        //drawFruits(g);
+
+        // Draw additional drawings or images
+        //drawAdditionalElements(g);
+    }
+
+    private void drawFruits(Graphics g) {
+        // Loop through your list of fruits and draw each one
+        for (Fruit fruit : fruits) {
+            fruit.draw(g);
+        }
+    }
+
+    private void drawAdditionalElements(Graphics g) {
+        // Draw additional elements or images as needed
+    }
+
+    private void initBackgroundImage() {
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("cute-brown-aesthetic-abstract-minimal-background-perfect-for-wallpaper-backdrop-postcard-background-vector.jpg"));
+        backgroundImage = backgroundIcon.getImage();
+    }
+
+    private void initFruits() {
+        //maybe add stuff for the fruits this way? not sure
     }
 
 
@@ -184,16 +224,16 @@ public class FruitPanel extends JPanel{
 
 
         //tried to make bombpic synonymous with bomb --> hasnt been tested yet, will help to add pics with the rest of them maybe
-        image1Label = new JLabel("bombpic");
-        add(image1Label);
+        // image1Label = new JLabel("bombpic");
+        // add(image1Label);
 
-        image1Label.setHorizontalTextPosition(SwingConstants.LEFT);
-        image1Label.setVerticalTextPosition(SwingConstants.TOP);
+        // image1Label.setHorizontalTextPosition(SwingConstants.LEFT);
+        // image1Label.setVerticalTextPosition(SwingConstants.TOP);
 
-        ImageIcon bombIcon = 
-            new ImageIcon(getClass().getResource("bombpic.png"));
+        // ImageIcon bombIcon = 
+        //     new ImageIcon(getClass().getResource("bombpic.png"));
 
-        image1Label.setIcon(bombIcon);
+        // image1Label.setIcon(bombIcon);
         
         //i made it consistent with the fruit java part
         FruitPanel  = new JPanel(); 
@@ -285,9 +325,9 @@ public class FruitPanel extends JPanel{
         @Override
         public void mouseEntered(MouseEvent e) {
             // Handle mouse enter event
-            Fruit source = (Fruit) e.getSource();
-            source.requestFocus();
-                }
+            // Fruit source = (Fruit) e.getSource();
+            // source.requestFocus();
+        }
 
 		@Override
 		public void mouseExited(MouseEvent e) {
@@ -376,6 +416,7 @@ public class FruitPanel extends JPanel{
         for (Fruit fruit : list) { //tells the user what type of fruit it is
             System.out.println(fruit.getType());
         }
+    }
 
     public void generateRandomFruit() { //generates a random fruit
         Random random = new Random();
