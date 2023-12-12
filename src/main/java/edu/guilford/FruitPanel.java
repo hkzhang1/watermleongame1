@@ -3,8 +3,11 @@ package edu.guilford;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -20,6 +23,7 @@ import java.util.TimerTask;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
@@ -46,6 +50,10 @@ public class FruitPanel extends JPanel{
     private int panelHeight = 800;
     private Timer timer;
     private final int DELAY = 20;
+    private int lastY = 0;
+
+    private JPanel buttonPane; //to put the random fruit in
+    private JButton RandomFruit;
         
     public FruitPanel() {
         super(); 
@@ -77,18 +85,36 @@ public class FruitPanel extends JPanel{
         // }
     }
 
-     private void startAnimation() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+    //
+    private void startAnimation() {
+        long delay = 10; // Delay in milliseconds between each step of the animation
+    
+        // 
+        Runnable animation = new Runnable() {
             @Override
             public void run() {
-                ballFalling(); // Call the method to update fruit positions
-                repaint(); // Repaint the panel to reflect the changes
-            }
-        }, 0, DELAY);
-    }   
+                double grav = -9.81;
+                double height = 15;
+                double t = 0;
+                double dt = 1;
+                boolean falling;
+                for (Fruit fruit : fruits) {
+                    if (fruit.getY() - fruit.getRadius() > -height) {
+                        double droprate = fruit.getY() + (grav * dt);
+                        fruit.setY((int) droprate);
+                        falling = true;
+                        repaint();
+                    }
+                    
+                }
+                
+                }
+            };
+        };
+        // Thread animationThread = new Thread(animation);
+        // animationThread.start();
         
-
+    //for shuffling fruits: so we have different orders of the fruits when they get dropped
     private void shuffleFruits() { 
         Collections.shuffle(fruits);
     }
@@ -108,9 +134,10 @@ public class FruitPanel extends JPanel{
 
         //Draw other elements or images
         drawFruits(g);
-
+        
         // Draw additional drawings or images
-        //drawAdditionalElements(g);
+        drawAdditionalElements(g);
+    
     }
 
     private void drawFruits(Graphics g) { //make sure it doesn't draw immediately...
@@ -124,11 +151,13 @@ public class FruitPanel extends JPanel{
         // Draw additional elements or images as needed
     }
 
+    //putting in a background image to be aesthetic so it doesn't look sad and boring
     private void initBackgroundImage() {
         ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("cute-brown-aesthetic-abstract-minimal-background-perfect-for-wallpaper-backdrop-postcard-background-vector.jpg"));
         backgroundImage = backgroundIcon.getImage();
     }
 
+    //initialized the fruits and added them to the arraylist
     private void initFruits() {
         //maybe add stuff for the fruits this way? not sure
         fruits = new ArrayList<>();
@@ -149,10 +178,12 @@ public class FruitPanel extends JPanel{
         fruits.add(apple);
         fruits.add(bomb);
 
+        //shuffled order of fruits here
         shuffleFruits();
+        
     }
 
-    //method that randomly selects a fruit and draws it at a specific point
+    //method that randomly selects a fruit and draws it at a specific point (300, 10)
     public void randomFruitSelected() {
         Random random = new Random();
         int randomIndex = random.nextInt(fruits.size());
@@ -200,6 +231,20 @@ public class FruitPanel extends JPanel{
         FruitPanel.setOpaque(true); 
         FruitPanel.setLayout(new BoxLayout(FruitPanel, BoxLayout.LINE_AXIS));            
         FruitPanel.add(Box.createHorizontalGlue()); 
+
+        //panel to put the random fruit button
+        buttonPane = new JPanel();
+        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+        buttonPane.add(Box.createHorizontalGlue());
+
+        //to make the button
+        RandomFruit = new JButton("Random Fruit?");
+        buttonPane.add(RandomFruit);
+        //RandomFruit.addActionListener(new RandomFruitListener());
+
+        add(buttonPane);
+
+    
     }
 
     
@@ -207,11 +252,11 @@ public class FruitPanel extends JPanel{
     public void ballFalling() {
 
         double grav = -9.81;
-        //double dropheight = 20;
         double height = 15;
-        //double width = 15;
         double t = 0;
-        double dt = 1;
+        double dt = 0.01;
+         //double dropheight = 20;
+         //double width = 15;
 
         List<Fruit> list = new ArrayList<>();
         list.add(cherry);
@@ -226,13 +271,24 @@ public class FruitPanel extends JPanel{
                 double droprate = fruit.getY() + (grav * dt);
                 fruit.setY((int)droprate);
                 t += dt;
-                if (fruit.getY() + fruit.radius == bomb.getY() + bomb.radius) {
-                    fruit.color = Color.DARK_GRAY;
-                    //System.out.println("exploded!");
+                repaint();
+                //drawFruits(g);
+                // if (fruit.getY() + fruit.radius == bomb.getY() + bomb.radius) {
+                //     fruit.color = Color.DARK_GRAY;
+                //     //System.out.println("exploded!");
                 }
             }
         }
     }
+
+    //  private class RandomFruit implements ActionListener {
+
+    //     @Override
+    //     public void actionPerformed(ActionEvent e) {
+    //         generateRandomFruit();
+    //         repaint();
+    //     }
+    // }
 
     //mousekeyevent (look at lab 14 on how they formatted it)
     class SuikaMouseHelper implements MouseListener {
@@ -249,21 +305,16 @@ public class FruitPanel extends JPanel{
 
             // if (!isFruitMoving) {
             //     // If no fruit is moving, select a random fruit at the initial position
-            //     randomFruitSelected();
+            //     //randomFruitSelected();
             // } else {
             //     // If a fruit is already moving, teleport the clicked fruit to the clicked x position
-            //     Fruit clickedFruit = getClickedFruit(clickPoint);
-            //     if (clickedFruit != null) {
-            //         clickedFruit.setX((int) clickPoint.getX() - clickedFruit.getRadius());
-            //         clickedFruit.setY((int) clickPoint.getY() - clickedFruit.getRadius());
-            //     }
+            //     //should just not do anything
             // }
     
-            repaint(); // Redraw the panel with the updated fruit positions
+             // Redraw the panel with the updated fruit positions
         }
             // add code that redirects the action to ballaction which will basically make
             // the balls drop down
-
 
         @Override
         public void mousePressed(MouseEvent e) {
@@ -288,28 +339,12 @@ public class FruitPanel extends JPanel{
 			// TODO Auto-generated method stub
 			
 		}
-        }
 
         //this is connected code to the is there a fruit moving? 
-        // public void setFruitMoving(boolean isMoving) {
-        //     this.isFruitMoving = isMoving;
-        // }
-    
-        // private Fruit getClickedFruit(Point clickPoint) {
-        //     for (Fruit fruit : fruits) {
-        //         int x = fruit.getX();
-        //         int y = fruit.getY();
-        //         int radius = fruit.getRadius();
-    
-        //         if (clickPoint.getX() >= x - radius && clickPoint.getX() <= x + radius &&
-        //             clickPoint.getY() >= y - radius && clickPoint.getY() <= y + radius) {
-        //             return fruit;
-        //         }
-        //     }
-        //     return null;
-        // }
+        public void setFruitMoving(boolean isMoving) {
+            this.isFruitMoving = isMoving;
+        }
 
-    }
 
     class suikaKeyListener implements KeyListener {
 
@@ -331,7 +366,6 @@ public class FruitPanel extends JPanel{
     
     
     // for other code in this class - oh?????
-
     public void generateRandomFruit() { //generates a random fruit
         Random random = new Random();
         int randomX = random.nextInt(300) + 50;  // Random x-coordinate within a range
@@ -341,6 +375,11 @@ public class FruitPanel extends JPanel{
         Color randomballColor = Color.CYAN;
         double randomVelocity = (random.nextDouble() * 10);
         Fruit randomFruit = new Fruit(randomX, randomY, randomRadius, randomType, randomballColor, randomVelocity);
+        List<Fruit> list = new ArrayList<>();
+        
+
+        list.add(randomFruit);
     }
+}
 }
 
