@@ -1,13 +1,8 @@
 package edu.guilford;
 
 import java.awt.Graphics;
-
-
 import javax.swing.JFrame;
-
-
 import edu.guilford.FruitPanel.SuikaMouseHelper;
-
 import java.awt.Color;
 
 public class Fruit {
