@@ -24,7 +24,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 
 //plan:
@@ -54,6 +56,8 @@ public class FruitPanel extends JPanel{
 
     private JPanel buttonPane; //to put the random fruit in
     private JButton RandomFruit;
+
+    private JButton startButton;
         
     public FruitPanel() {
         super(); 
@@ -239,12 +243,52 @@ public class FruitPanel extends JPanel{
 
         //to make the button
         RandomFruit = new JButton("Random Fruit?");
+        RandomFruit.addActionListener(new RandomFruitListener());
+        
+        startButton = new JButton("Start");
+        startButton.addActionListener(new StartButtonListener());
+        buttonPane.add(startButton);
+
         buttonPane.add(RandomFruit);
-        //RandomFruit.addActionListener(new RandomFruitListener());
+        
 
         add(buttonPane);
 
     
+    }
+
+    private class RandomFruitListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            generateRandomFruit();
+            repaint();
+        }
+    }
+
+    private class StartButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            startGame();
+        }
+    }
+
+    private void startGame() {
+        // Select a random fruit and set its position to (300, 10)
+        randomFruitSelected();
+    }
+
+    public void generateRandomFruit() { //generates a random fruit
+        Random random = new Random();
+        int randomX = random.nextInt(300) + 50;  // Random x-coordinate within a range
+        int randomY = random.nextInt(300) + 50;  // Random y-coordinate within a range
+        int randomRadius = random.nextInt(20) + 20;  // Random radius within a range
+        String randomType = "RandomFruit";
+        Color randomballColor = Color.CYAN;
+        double randomVelocity = (random.nextDouble() * 10);
+        Fruit randomFruit = new Fruit(randomX, randomY, randomRadius, randomType, randomballColor, randomVelocity);        
+
+        fruits.add(randomFruit);
     }
 
     
@@ -281,20 +325,8 @@ public class FruitPanel extends JPanel{
         }
     }
 
-    //  private class RandomFruit implements ActionListener {
-
-    //     @Override
-    //     public void actionPerformed(ActionEvent e) {
-    //         generateRandomFruit();
-    //         repaint();
-    //     }
-    // }
-
     //mousekeyevent (look at lab 14 on how they formatted it)
     class SuikaMouseHelper implements MouseListener {
-
-        private boolean isFruitMoving = false;
-
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -311,6 +343,19 @@ public class FruitPanel extends JPanel{
             //     //should just not do anything
             // }
     
+            int x = e.getX();
+            int y = e.getY();
+
+            // Check if the click is inside the container
+            if (x >= 328 && x <= 1000 && y >= 0 && y <= 800) {
+                // Find the fruit at (300, 10) and execute ballFalling
+                for (Fruit fruit : fruits) {
+                    if (fruit.getX() == 300 && fruit.getY() == 10) {
+                        ballFalling(fruit);
+                        break;
+                    }
+                }
+            }
              // Redraw the panel with the updated fruit positions
         }
             // add code that redirects the action to ballaction which will basically make
@@ -341,9 +386,10 @@ public class FruitPanel extends JPanel{
 		}
 
         //this is connected code to the is there a fruit moving? 
-        public void setFruitMoving(boolean isMoving) {
-            this.isFruitMoving = isMoving;
-        }
+        // public void setFruitMoving(boolean isMoving) {
+        //     this.isFruitMoving = isMoving;
+        // }
+    }
 
 
     class suikaKeyListener implements KeyListener {
@@ -355,7 +401,12 @@ public class FruitPanel extends JPanel{
 
         @Override
         public void keyPressed(KeyEvent e) {
-            // Handle key pressed event
+            // // Handle key pressed event
+            // if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            //     // Close the window when Escape key is pressed
+            //     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(FruitPanel.this);
+            //     frame.dispose();
+            // }
 
         }
 
@@ -364,22 +415,5 @@ public class FruitPanel extends JPanel{
             // Handle key released event
         }
     
-    
-    // for other code in this class - oh?????
-    public void generateRandomFruit() { //generates a random fruit
-        Random random = new Random();
-        int randomX = random.nextInt(300) + 50;  // Random x-coordinate within a range
-        int randomY = random.nextInt(300) + 50;  // Random y-coordinate within a range
-        int randomRadius = random.nextInt(20) + 20;  // Random radius within a range
-        String randomType = "RandomFruit";
-        Color randomballColor = Color.CYAN;
-        double randomVelocity = (random.nextDouble() * 10);
-        Fruit randomFruit = new Fruit(randomX, randomY, randomRadius, randomType, randomballColor, randomVelocity);
-        List<Fruit> list = new ArrayList<>();
-        
-
-        list.add(randomFruit);
     }
-}
-}
 
