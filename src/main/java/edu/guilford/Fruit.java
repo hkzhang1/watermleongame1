@@ -60,7 +60,7 @@ public class Fruit {
         // JPanel fruitPanel = new JPanel(); //cant make jpanel have a name--jframe can have a name
         // fruitPanel.setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
 
-        JFrame fruitFrame = new JFrame("Best (suika) Game"); //creates a frame for the game titled suika game
+        JFrame fruitFrame = new JFrame("Suika Game"); //creates a frame for the game titled suika game
 
         FruitPanel FruitPanel = new FruitPanel(); //creates a fruitpanel from the FruitPanel
 

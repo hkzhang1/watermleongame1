@@ -9,10 +9,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -41,12 +44,15 @@ public class FruitPanel extends JPanel{
     private Image backgroundImage;
     private int panelWidth = 1000;
     private int panelHeight = 800;
+    private Timer timer;
+    private final int DELAY = 20;
         
     public FruitPanel() {
         super(); 
         initFruits();
         //drawFruits(g);
         initBackgroundImage();
+        startAnimation();
        
         //background image
         backgroundPanel = new JPanel();
@@ -71,7 +77,16 @@ public class FruitPanel extends JPanel{
         // }
     }
 
-        
+     private void startAnimation() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                ballFalling(); // Call the method to update fruit positions
+                repaint(); // Repaint the panel to reflect the changes
+            }
+        }, 0, DELAY);
+    }   
         
 
     private void shuffleFruits() { 
@@ -89,7 +104,7 @@ public class FruitPanel extends JPanel{
 
         //draw the container --> add some code to put it at a specific place + height and width
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(1800/4, 0, panelWidth, panelHeight);
+        g.fillRect(328, 0, panelWidth, panelHeight);
 
         //Draw other elements or images
         drawFruits(g);
@@ -119,12 +134,12 @@ public class FruitPanel extends JPanel{
         fruits = new ArrayList<>();
 
         //initializes the fruits here
-        cherry = new Fruit(0, 0, 20, "cherry", Color.PINK, 0);
-        strawberry = new Fruit(300, 150, 40, "strawberry", Color.MAGENTA, 0);
-        grape = new Fruit(350, 150, 60, "grape", Color.BLUE, 0);
-        orange = new Fruit(400, 150, 80, "orange", Color.ORANGE, 0);
-        apple = new Fruit(450, 150, 100, "apple", Color.RED, 0);
-        bomb = new Fruit(500, 120, 20, "bomb", Color.GRAY, 0);
+        cherry = new Fruit(350, 100, 20, "cherry", Color.PINK, 0);
+        strawberry = new Fruit(540, 100, 40, "strawberry", Color.MAGENTA, 0);
+        grape = new Fruit(740, 100, 60, "grape", Color.BLUE, 0);
+        orange = new Fruit(940, 100, 80, "orange", Color.ORANGE, 0);
+        apple = new Fruit(1140, 100, 100, "apple", Color.RED, 0);
+        bomb = new Fruit(1310, 100, 20, "bomb", Color.GRAY, 0);
 
         //adds fruits to the fruits list
         fruits.add(cherry);
@@ -196,7 +211,7 @@ public class FruitPanel extends JPanel{
         double height = 15;
         //double width = 15;
         double t = 0;
-        double dt = 0.01;
+        double dt = 1;
 
         List<Fruit> list = new ArrayList<>();
         list.add(cherry);
@@ -213,7 +228,7 @@ public class FruitPanel extends JPanel{
                 t += dt;
                 if (fruit.getY() + fruit.radius == bomb.getY() + bomb.radius) {
                     fruit.color = Color.DARK_GRAY;
-                    System.out.println("exploded!");
+                    //System.out.println("exploded!");
                 }
             }
         }
