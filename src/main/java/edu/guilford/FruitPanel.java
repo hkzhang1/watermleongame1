@@ -1,5 +1,6 @@
 package edu.guilford;
 
+import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -51,6 +52,7 @@ public class FruitPanel extends JPanel{
     private JButton startButton; //start button
     private JButton nextFruitButton; //next fruit displaying button
     private int currentFruitIndex = -1;
+	private JLabel randomQuote; //for making a random quote appear on the screen
 
     public FruitPanel() {
         super(); 
@@ -64,6 +66,12 @@ public class FruitPanel extends JPanel{
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.LINE_AXIS));
         backgroundPanel.add(Box.createHorizontalGlue());
         add(backgroundPanel);
+
+	//make a jlabel for randomquote and add it to the bakcgroundpanel
+	randomQuote = new JLabel();
+        randomQuote.setForeground(Color.WHITE); // Set text color to white
+        randomQuote.setFont(new Font("Arial", Font.BOLD, 20)); // Set font
+        backgroundPanel.add(randomQuote); // Add the label to the backgroundPanel
 
         initPanel();
 
@@ -117,8 +125,20 @@ public class FruitPanel extends JPanel{
 
     private void drawAdditionalElements(Graphics g) {
         // Draw additional elements or images as needed
+	String randomString = getRandomString(); //to get the random quote from an array of strings
+        g.setColor(Color.WHITE);
+        g.drawString(randomString, 1500, 400);
     }
 
+private String getRandomString() {
+        // to get the random string from the array
+        String[] stringsArray = {"String1", "String2", "String3", "String4"};
+        Random random = new Random();
+        int randomIndex = random.nextInt(stringsArray.length);
+        return stringsArray[randomIndex];
+    }
+
+	
     //putting in a background image to be aesthetic so it doesn't look sad and boring
     private void initBackgroundImage() {
         ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("cute-brown-aesthetic-abstract-minimal-background-perfect-for-wallpaper-backdrop-postcard-background-vector.jpg"));
@@ -285,6 +305,7 @@ private void showNextFruit() {
     if (currentFruitIndex >= 0 && currentFruitIndex < fruits.size()) {
         Fruit currentFruit = fruits.get(currentFruitIndex);
         currentFruit.setVisible(false); // Hide the current fruit
+	randomQuote.setText("");
     }
 
     // Choose a random fruit and show it
@@ -335,6 +356,10 @@ private void showNextFruit() {
                 fruit.setY((int)droprate);
                 repaint();
                 System.out.println(fruit.getY());
+
+		String randomString = getRandomString();
+                randomQuote.setText(randomString);
+		    
                 rate += dt;
                 // if (fruit.getY() + fruit.radius == bomb.getY() + bomb.radius) {
                 //     fruit.color = Color.DARK_GRAY;
