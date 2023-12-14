@@ -26,6 +26,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 //import javax.swing.JFrame;
 import javax.swing.JPanel;
 //import javax.swing.SwingUtilities;
@@ -90,18 +91,10 @@ public class FruitPanel extends JPanel{
         // }
     }
         
-<<<<<<< HEAD
-        
-
-    // private void shuffleFruits() { 
-    //     Collections.shuffle(fruits);
-    // }
-=======
     //for shuffling fruits: so we have different orders of the fruits when they get dropped
     private void shuffleFruits() { 
         Collections.shuffle(fruits);
     }
->>>>>>> 8d66aaad996aee4cb278cbcc8fd6464d326dce68
     
 
     //for the drawing maybe
