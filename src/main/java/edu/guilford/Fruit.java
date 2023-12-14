@@ -9,8 +9,7 @@ import java.awt.Color;
 
 public class Fruit {
    
-    // to define the proportions of the fruits using x, y, and the radius (becuase
-    // they are all circles)
+    // to define the proportions of the fruits using x, y, radius
     int x, y, radius;
     String type;
     Color color;
@@ -46,21 +45,12 @@ public class Fruit {
         else
             g.setColor(Color.CYAN);
 
-        // g.setColor(Color.RED); // need to make it so that it changes colors based on
-        // type
+        
         g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
 
-        // IMPORTNAT : still need to draw teh container, make the entire thing actually
-        // look good....... (so aesthetic, using colors, etc)
-
-        // Draw the type of fruit next to the circle
-        // g.setColor(Color.BLACK);
-        // g.drawString(type, x - radius, y - radius - 5);
     }
 
-    public static void main(String[] args) { //look at lab 15 studentProject file for more help on this part
-        // JPanel fruitPanel = new JPanel(); //cant make jpanel have a name--jframe can have a name
-        // fruitPanel.setDefaultCloseOperation(JPanel.EXIT_ON_CLOSE);
+    public static void main(String[] args) { 
 
         JFrame fruitFrame = new JFrame("Suika Game"); //creates a frame for the game titled suika game
 
@@ -69,16 +59,13 @@ public class Fruit {
         FruitPanel.setBackground(Color.BLACK); //color of the window
 
         fruitFrame.getContentPane().add(FruitPanel); //adds the fruitpanel to the frame for the game
-        //fruitFrame.getContentPane().add(backgroundPanel); 
-        //BackgroundPanel backgroundPanel = new BackgroundPanel(Color.MAGENTA, 800, 600);
 
-        fruitFrame.setSize(1800,900);
+        fruitFrame.setSize(1800,900); //size of panel
 
         fruitFrame.pack();
         fruitFrame.setVisible(true);
         };
 
-    // add more stuff for the behaviors of the fruits -- i think falling, the scoreboard, etc
 
     // getters and setters for X
     public int getX() {
